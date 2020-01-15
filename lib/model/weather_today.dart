@@ -1,9 +1,9 @@
-import 'Clouds.dart';
-import 'Coord.dart';
-import 'Main.dart';
-import 'Sys.dart';
-import 'Weather.dart';
-import 'Wind.dart';
+import 'clouds.dart';
+import 'coord.dart';
+import 'main.dart';
+import 'sys.dart';
+import 'weather.dart';
+import 'wind.dart';
 
 class WeatherResponse {
   Coord coord;
