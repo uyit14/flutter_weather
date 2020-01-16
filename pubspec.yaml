@@ -26,6 +26,7 @@ dependencies:
   http:
   rxdart:
   intl: ^0.15.7
+  location:
 
 dev_dependencies:
   flutter_test:

@@ -5,6 +5,10 @@ import 'package:flutter_weather/model/weather_today.dart';
 import 'home_bloc.dart';
 
 class HomeWeather extends StatefulWidget {
+  final double latitute;
+  final double longtitute;
+  HomeWeather(this.latitute, this.longtitute);
+
   @override
   _HomeWeatherState createState() => _HomeWeatherState();
 }
@@ -13,7 +17,7 @@ class _HomeWeatherState extends State<HomeWeather> {
 
   @override
   void initState() {
-    bloc.fetchWeatherByCityName("Tokyo");
+    bloc.fetchWeatherByLocation(widget.latitute, widget.longtitute);
     super.initState();
   }
 

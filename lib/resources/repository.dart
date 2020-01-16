@@ -8,4 +8,6 @@ class Repository {
 
   Future<WeatherResponse> fetchWeatherByCityName(String _cityName) => weatherApiProvider.fetchWeatherByCityName(_cityName);
   Future<WeatherForeCast> fetchWeatherForecastByCityName(String _cityName) => weatherApiProvider.fetchWeatherForecastByCityName(_cityName);
+  Future<WeatherResponse> fetchWeatherByLocation(double _latitute, double _longtitute) => weatherApiProvider.fetchWeatherByLocation(_latitute, _longtitute);
+  Future<WeatherForeCast> fetchWeatherForecastByLocation(double _latitute, double _longtitute) => weatherApiProvider.fetchWeatherForecastByLocation(_latitute, _longtitute);
 }

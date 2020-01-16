@@ -1,12 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_weather/common/datetime_convert.dart';
-import 'package:flutter_weather/common/space_size.dart';
-import 'package:flutter_weather/model/weather_forecast.dart';
-import 'package:flutter_weather/model/weather_today.dart';
-import 'package:flutter_weather/ui/home/home_bloc.dart';
 import 'package:flutter_weather/ui/home/home_forecast.dart';
 import 'package:flutter_weather/ui/home/home_weather.dart';
+import 'package:flutter_weather/ui/search/search_page.dart';
+import 'package:location/location.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -15,35 +12,47 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var icon = Icons.favorite_border;
-  bool isFavorited = true;
+  bool isFavorited = false;
+  double latitute = 0.0, longtitute = 0.0;
 
   @override
   void initState() {
-    bloc.fetchWeatherForecastByCityName("Tokyo");
+    _getCurrentLocation();
     super.initState();
   }
 
-  @override
-  void dispose() {
-    bloc.dispose();
-    super.dispose();
+  Future<void> _getCurrentLocation() async{
+    final locationData = await Location().getLocation();
+    latitute = locationData.latitude;
+    longtitute = locationData.longitude;
+  }
+
+  void _changeIcon(){
+    if(!isFavorited){
+      isFavorited = true;
+      setState(() {
+        icon = Icons.favorite;
+      });
+    }else{
+      isFavorited = false;
+      setState(() {
+        icon = Icons.favorite_border;
+      });
+    }
+  }
+  //goto search page
+  void _gotoSearchPage(BuildContext context){
+    Navigator.of(context).push(
+        MaterialPageRoute(
+            builder: (_){
+              return SearchPage();
+            }
+        )
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    void _changeIcon(){
-      if(!isFavorited){
-        isFavorited = true;
-        setState(() {
-          icon = Icons.favorite;
-        });
-      }else{
-        isFavorited = false;
-        setState(() {
-          icon = Icons.favorite_border;
-        });
-      }
-    }
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
@@ -52,7 +61,12 @@ class _HomePageState extends State<HomePage> {
             onPressed: _changeIcon,
           ),
           SizedBox(width: 16,),
-          Icon(Icons.search),
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: (){
+              _gotoSearchPage(context);
+            },
+          ),
           SizedBox(width: 16,),
           Icon(Icons.language),
           SizedBox(width: 4,)
@@ -65,8 +79,8 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.all(8),
               child: Column(
                 children: <Widget>[
-                  HomeWeather(),
-                  HomeForecast()
+                  HomeWeather(latitute, longtitute),
+                  HomeForecast(latitute, longtitute)
                 ],
               ),
             ),
