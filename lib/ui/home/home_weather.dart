@@ -5,28 +5,12 @@ import 'package:flutter_weather/model/weather_today.dart';
 import 'home_bloc.dart';
 
 class HomeWeather extends StatefulWidget {
-  final double latitute;
-  final double longtitute;
-  HomeWeather(this.latitute, this.longtitute);
 
   @override
   _HomeWeatherState createState() => _HomeWeatherState();
 }
 
 class _HomeWeatherState extends State<HomeWeather> {
-
-  @override
-  void initState() {
-    bloc.fetchWeatherByLocation(widget.latitute, widget.longtitute);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    bloc.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<Object>(
@@ -59,8 +43,8 @@ class _HomeWeatherState extends State<HomeWeather> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    Text(weatherResponse.main.tempMin.toString() + "°C", style: TextStyle(fontSize: 18, color: Colors.white),),
-                    Text(weatherResponse.main.tempMax.toString() + "°C", style: TextStyle(fontSize: 18, color: Colors.white),)
+                    Text("Max: " + weatherResponse.main.tempMin.toString() + "°C", style: TextStyle(fontSize: 18, color: Colors.white),),
+                    Text("Min: " + weatherResponse.main.tempMax.toString() + "°C", style: TextStyle(fontSize: 18, color: Colors.white),)
                   ],
                 ),
               ],

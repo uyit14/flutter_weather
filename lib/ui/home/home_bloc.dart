@@ -33,9 +33,9 @@ class HomeBloc {
     _weatherForecast.sink.add(weatherForeCast);
   }
 
-  dispose(){
-    _weatherResponse.close();
+  void dispose(){
     _weatherForecast.close();
+    _weatherResponse.close();
   }
 }
 

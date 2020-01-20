@@ -6,27 +6,12 @@ import 'package:flutter_weather/model/weather_forecast.dart';
 import 'home_bloc.dart';
 
 class HomeForecast extends StatefulWidget {
-  final double latitute;
-  final double longtitute;
-  HomeForecast(this.latitute, this.longtitute);
 
   @override
   _HomeForecastState createState() => _HomeForecastState();
 }
 
 class _HomeForecastState extends State<HomeForecast> {
-  @override
-  void initState() {
-    bloc.fetchWeatherForecastByLocation(widget.latitute, widget.longtitute);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    bloc.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Expanded(
